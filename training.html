@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Fetch Api - Sending Form Data
+    </h1>
+    <form class="form" id="myForm" action="login.php" method="post">
+        <!-- enctype="multipart/form-data"> -->
+
+        Username<input type="text" name="username" placeholder="full name"> password
+        <input type="password" name="password">
+        <label for="">login</label>
+        <input type="submit" name="submit">
+    </form>
+    <script>
+        const myForm = document.getElementById('myForm')
+
+        myForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const searchParams = new URLSearchParams();
+
+            // for (const pair of formData) {
+            //     searchParams.append(pair[0].pair[1]);
+            // }
+
+            fetch('login.php', {
+                method: 'post',
+                body: formData
+            }).then(function(response) {
+                return response.text();
+            }).then(function(text) {
+                console.log(text);
+            }).catch(function(error) {
+                console.log(error);
+            })
+        });
+    </script>
+</body>
+
+</html>
